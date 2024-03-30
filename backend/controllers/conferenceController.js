@@ -38,6 +38,7 @@ const listConfsAdmin = async (req,res) => {
     }
 }
 
+//----Detalle de una conferencia por expositor
 const detailConf = async (req,res) => {
     const { id } = req.params;
     try {
@@ -98,7 +99,7 @@ const modifConf = async (req,res) => {
     }
 }
 
-// Muestra lugares y horarios de una conferencia elegida
+// Muestra lugares y horarios de una conferencia elegida por titulo
 const infoConfer = async (req,res) => {
     // obtener nombre de la conferencia
     const { titulo } = req.params;
@@ -131,16 +132,13 @@ const infoConfer = async (req,res) => {
 //----Lista conferencias por fecha
 const todaysConfs = async (req,res) => {
     // obtener fecha
-    const { fecha } = req.params;
+    const { date } = req.query;
     try {
+        console.log(req);
         // Buscar coincidencias
-        const confers = await Conferencia.find().where('Horario.Fecha').equals(fecha);
-        let filterData; //  Para filtrar datos  
-        let dataToShare = [];   //  Almacenar datos a enviar
-        confers.forEach(conf=>{
-            dataToShare.push(conf.Titulo);
-        });
-        res.json({conferences:dataToShare});
+        const confers = await Conferencia.find({'Horario.Fecha':date});
+        console.log(confers);
+        res.json(confers);
     } catch (error) {
         res.json({msg:"No se encontraron conferencias"})
     }
@@ -158,6 +156,22 @@ const deleteOneConf = async (req,res) => {
     }
 }
 
+
+const groupConfers = async (req,res) => {
+    try {
+        const titles = await Conferencia.aggregate([
+            {$group:{'_id':'$Titulo'}},
+            {$project:{'Titulos':'$_id'}}
+        ]);
+        console.log(titles);
+        res.json(titles);
+    } catch (error) {
+        const err = new Error("Error en la consulta");
+        console.log(err.message);
+        res.json({msg:err.message});
+    }
+}
+
 export {
     nuevaConf,
     listarConfsExp,
@@ -169,4 +183,5 @@ export {
     infoConfer,
     todaysConfs,
     deleteOneConf,
+    groupConfers
 };

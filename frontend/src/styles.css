@@ -129,7 +129,7 @@ btn:hover {
 .content-header {
     display: flex;
     flex-direction: column;
-    height: calc(60rem - 35rem);
+    height: calc(40rem - 20rem);
     justify-content: space-between;
     color: var(--blanco);
 }

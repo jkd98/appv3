@@ -3,7 +3,7 @@ import { soldOut,statistics } from "../controllers/statistController.js";
 //------------
 const ROUTER = express.Router();
 //------------
-ROUTER.post('/',soldOut);
+ROUTER.get('/out',soldOut);
 ROUTER.get('/',statistics);
 //------------
 

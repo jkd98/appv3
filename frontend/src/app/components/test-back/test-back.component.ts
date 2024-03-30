@@ -4,6 +4,7 @@ import { Conferencia } from '../../models/Conference';
 import { ConferenceService } from '../../services/conference.service';
 import { AssistService } from '../../services/assist.service';
 import { Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-test-back',
@@ -59,7 +60,7 @@ export class TestBackComponent implements OnInit{
     let nwConfer = new Conferencia(titulo!,descrip!);
     
     nwConfer.Horario.Lugar = lugar!;
-    nwConfer.Horario.Fecha = fecha!;
+    nwConfer.Horario.Fecha = formatDate(Date(), 'yyyy-MM-dd', 'en-US')
     nwConfer.Horario.HoraInicio = horaInicio!;
     nwConfer.Horario.HoraFin = horaFin!;
     nwConfer.Horario.Expositor.Semblanza = semblanza!;

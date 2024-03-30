@@ -11,7 +11,10 @@ const assistConference = async (req,res) => {
         //conferencia.Horario.AsistentesRegistrados.push({'_id':req.usuario._id});
         const assist = await Conferencia.updateOne(
             {'_id':id},
-            {$push:{'Horario.AsistentesRegistrados':req.usuario.id}}
+            {
+                $push:{'Horario.AsistentesRegistrados':req.usuario.id},
+                $inc:{'Horario.CupoTotal':-1}
+            }
         );
         console.log(assist);
         return res.status(200).json({msg:"Registro Exitoso"})

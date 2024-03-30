@@ -4,6 +4,21 @@ import Conferencia from '../models/Conferencia.js';
 //------------
 //  Mostrar confs con cupo lleno segun la fecha especifica
 const soldOut = async (req,res) => {
+  //console.log('before try...');
+  try {
+    //console.log('try...');
+    const {date} = req.query;
+    //console.log(date);
+    const confs = await Conferencia.find(
+      {$and:[{'Horario.Fecha':date},{'Horario.CupoTotal':0}]}
+    );
+    res.json(confs);
+  } catch (error) {
+    res.json({msg:"No hay conferencias"})
+  }
+}
+//  Mostrar confs con cupo lleno segun la fecha especifica
+const soldOut2 = async (req,res) => {
     try {
         const {fecha} = req.body;
         console.log(`statist contrllr -> req: ${fecha}`)

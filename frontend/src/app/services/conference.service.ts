@@ -141,5 +141,25 @@ export class ConferenceService {
       console.log("Error Angular");
     }
   }
+
+  async groupTitles(){
+    try {
+      const {data} = await clienteAxios.get('/confer/titles');
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.log("Error Angular");
+    }
+  }
+
+  async confersDate(date:string){
+    try{
+      const {data} = await clienteAxios.get(`/confer/date/?date=${date}`);
+      console.log(data);
+      return data;
+    }catch(error){
+      console.log("Error angular");
+    }
+  }
   //-----------
 }

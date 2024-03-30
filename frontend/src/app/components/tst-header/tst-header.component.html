@@ -20,8 +20,9 @@
                     }
                     @if (roleComputed() ==='admin'){
                         <a [routerLink]="['/auth/home']">Home</a>
-                        <a [routerLink]="['/auth/administradores']">Administrar</a>
-
+                        <a [routerLink]="['/auth/administradores']">Cambiar status</a>
+                        <a [routerLink]="['/auth/horarios']">Ver Horarios</a>
+                        <a [routerLink]="['/auth/all-confs']">Ver Conferencias</a>
                     }
                 </nav>
             </div>
