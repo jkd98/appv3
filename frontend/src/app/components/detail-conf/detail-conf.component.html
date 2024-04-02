@@ -24,10 +24,10 @@
             </div>
             @for (conf of dataConfs; track $index) {
                 <div class="tc_crm__exp flex" >
-                    <p >{{conf.id}}</p>
+                    <p ><img [src]="conf.Foto" alt=""></p>
                 </div>
                 <div class="tc_crm__semb flex" >
-                    <p >{{conf.Semblanza}}</p>
+                    <p >{{conf.Descripcion}}</p>
                 </div>
                 <div class="tc_crm__inic flex">
                     <p >{{conf.HoraInicio}} hrs</p>

@@ -16,6 +16,8 @@ import { UserComponent } from './layouts/user/user.component';
 import { AuthComponent } from './layouts/auth/auth.component';
 import { SchedulesComponent } from './components/schedules/schedules.component';
 import { AllConferenccesComponent } from './components/all-conferencces/all-conferencces.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { UserConfsComponent } from './components/user-confs/user-confs.component';
 
 const routes: Routes = [
   {
@@ -85,6 +87,16 @@ const routes: Routes = [
         component: AllConferenccesComponent,
         canActivate:[authGuard],
         data:{roles:["admin"]}
+      },
+      {
+        path:'statistics',
+        component:StatisticsComponent,
+        title:'Estadisticas'
+      },
+      {
+        path:'myassist',
+        component:UserConfsComponent,
+        title:'Asistecias'
       },
       {
         path:'',

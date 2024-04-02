@@ -1,4 +1,5 @@
 import Conferencia from '../models/Conferencia.js';
+import Usuario from '../models/Usuario.js';
 //------------AQU VOY 
 
 //------------
@@ -41,14 +42,15 @@ const soldOut2 = async (req,res) => {
     }
 }
 //  Mostrar estadsticas de las conferencias 
-const statistics = async (req,res) => {
+const statistics2 = async (req,res) => {
     try {
         const data = await Conferencia.aggregate([
             { $project:{
               'Titulo':1,
               'Horario':1,
               'LugDisp':{$subtract:['$Horario.CupoTotal',{$size:'$Horario.AsistentesRegistrados'}]},
-              } },
+              } 
+            },
             { $group:{
               '_id':'$Titulo',
               'Registrados':{$push:{
@@ -57,7 +59,8 @@ const statistics = async (req,res) => {
                 'LugsD':'$LugDisp',
                 'DisponProm':{$multiply: [ { $divide: ['$LugDisp','$Horario.CupoTotal'] }, 100 ]}
               }}
-            } }
+              } 
+            }
           ]);
         console.log(data);
         return res.status(200).json({data});
@@ -67,7 +70,44 @@ const statistics = async (req,res) => {
         return res.status(500).json({msg:err.message});
     }
 }
-
+// Mostrar estadisticas de las conferencias
+const statistics = async (req,res) => {
+  try {
+    // conferencias
+    const dataConfs = await Conferencia.aggregate([
+      {
+        $project:{
+          'Titulo':1,
+          'Horario':1,
+          'TRegist':{$size:'$Horario.AsistentesRegistrados'},
+          'Total':{$sum:['$Horario.CupoTotal',{$size:'$Horario.AsistentesRegistrados'}]},
+        }
+      },
+      {
+        $group:{
+          '_id':'$Titulo',
+          'Registrados':{ 
+            $push:{
+              'Asist':{$size:'$Horario.AsistentesRegistrados'},
+              'Fecha':'$Horario.Fecha',
+              'Inicio':'$Horario.HoraInicio',
+              'Resgistrados':{$size:'$Horario.AsistentesRegistrados'},
+              'Disponibles':'$Horario.CupoTotal',
+              'PromDisp': {$multiply: [ { $divide: ['$Horario.CupoTotal','$Total'] }, 100 ]},
+              'Gen':'$Horario.AsistentesRegistrados.sexo',
+              'Foto':'$Horario.Expositor.Foto'
+            }
+          }
+        }
+      }
+    ]);
+    console.log(dataConfs);
+    res.json(dataConfs);
+  } catch (error) {
+    console.log('Error en consulta');
+    res.json({msg:"Error en el servidor"});
+  }
+}
 
 //------------
 export{

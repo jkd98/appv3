@@ -10,7 +10,8 @@ import {
     infoConfer,
     todaysConfs,
     deleteOneConf,
-    groupConfers
+    groupConfers,
+    listarConfsAssist
 } from '../controllers/conferenceController.js'
 import identi from '../middlewares/identi.js';
 
@@ -43,6 +44,10 @@ ROUTER.route('/adm')
 // obtener confeencia por titulo
 ROUTER.route('/title/:titulo')
         .get(infoConfer)
+;
+// obtener conferencias a las que asistire
+ROUTER.route('/asist')
+        .get(identi,listConfsAdmin)
 ;
 //  Registrar, listar conferencias por expositor
 ROUTER.route('/')

@@ -6,6 +6,7 @@ const nuevaConf = async (req,res) => {
     try {
         const confer = new Conferencia(req.body);
         confer.Horario.Expositor._id = req.usuario._id;
+        confer.Horario.Expositor.Nombre = req.usuario.nombre;
         const conferToSave = await confer.save();   //  Almacena en DB
         res.json({msg:"Conferencia Registrada con Exito",confer:conferToSave});
     } catch (error) {
@@ -88,12 +89,12 @@ const modifConf = async (req,res) => {
         confer.Horario.Fecha = req.body.fecha || confer.Horario.Fecha;
         confer.Horario.HoraInicio = req.body.horaInicio || confer.Horario.HoraInicio;
         confer.Horario.HoraFin = req.body.horaFin || confer.Horario.HoraFin;
-        confer.Horario.CupoTotal = req.body.cupoTotal || confer.Horario.CupoTotal;
+        confer.Horario.CupoTotal = req.body.cupo || confer.Horario.CupoTotal;
         confer.Horario.Expositor.Semblanza = req.body.semblanza || confer.Expositor.Semblanza;
         const editedConfe = await confer.save();
         console.log(confer);
         console.log(editedConfe);
-        //return res.json({msg:"Actualizacion exitosa"})
+        return res.json({msg:"Actualizacion exitosa"})
     } catch (error) {
         console.log("Error Mio jaja ")
     }
@@ -114,7 +115,9 @@ const infoConfer = async (req,res) => {
             filterData = {
                 id:conf._id,
                 Expositor:conf.Horario.Expositor._id,
+                Foto:conf.Horario.Expositor.Foto,
                 Semblanza:conf.Horario.Expositor.Semblanza,
+                Descripcion:conf.Descripcion,
                 HoraInicio:conf.Horario.HoraInicio,
                 HoraFin:conf.Horario.HoraFin,
                 Lugar: conf.Horario.Lugar
@@ -172,6 +175,19 @@ const groupConfers = async (req,res) => {
     }
 }
 
+//
+//----Lista  conferencias por expositor
+const listarConfsAssist = async (req,res) => {
+    const {id} = req.usuario;
+    const confers = await Conferencia.find().where('Horario.AsistentesRegistrados._id').equals(id);
+    if(confers.length >=  0){
+        res.json(confers);
+    }else{
+        res.json({msg:"No se encontraron conferencias"});
+    };
+};
+
+
 export {
     nuevaConf,
     listarConfsExp,
@@ -183,5 +199,6 @@ export {
     infoConfer,
     todaysConfs,
     deleteOneConf,
-    groupConfers
+    groupConfers,
+    listarConfsAssist
 };

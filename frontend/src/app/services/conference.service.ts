@@ -115,10 +115,12 @@ export class ConferenceService {
   }
   //
   async editConf(id:string,confer:any){
+    console.log("On edit...");
     try {
       const token = sessionStorage.getItem('tkn');
       
       if(!token) return;
+      console.log("On edit try retur...");
       const config = {
         headers:{
           "Content-Type":"application/json",

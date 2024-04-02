@@ -11,7 +11,9 @@ export class AllConferenccesComponent implements OnInit{
   //----------
   dataConfs = signal(new Array());
   public confs:Array<any>;
+  public confsSold:Array<any>;
   public dateConf='';
+  public dateConfSold='';
   //public dataConfs = computed(()=> this.confs());
   //----------
   constructor(
@@ -19,11 +21,12 @@ export class AllConferenccesComponent implements OnInit{
     private statisticsServices:StatisticsService
   ){
     this.confs = new Array();
+    this.confsSold = new Array();
   }
   //-----------
   async ngOnInit(){
-    const conf = await this.conferenceService.listConfersAdm()
-    this.confs=conf;
+    const conf = await this.conferenceService.listConfersAdm();
+    this.confs=[];
     console.log(this.confs);
   }
 
@@ -35,8 +38,8 @@ export class AllConferenccesComponent implements OnInit{
 
   async changeDateSold(){
     console.log(this.dateConf);
-    this.confs = await this.statisticsServices.getSoldOut(this.dateConf);
-    console.log(this.confs);
+    this.confsSold = await this.statisticsServices.getSoldOut(this.dateConfSold);
+    console.log(this.confsSold);
   }
 
 }

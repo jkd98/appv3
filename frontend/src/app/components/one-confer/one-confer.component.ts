@@ -18,7 +18,7 @@ export class OneConferComponent implements OnInit{
     titulo: ['', [Validators.required]],
     descrip: ['', [Validators.required]], // Agregar el campo de sexo al formulario
     lugar: ['', [Validators.required]],
-    //fecha: ['', [Validators.required]],
+    fecha: ['', [Validators.required]],
     horaInicio: ['', [Validators.required]],
     horaFin: ['', [Validators.required]],
     semblanza: ['', [Validators.required]],
@@ -36,7 +36,7 @@ export class OneConferComponent implements OnInit{
       titulo: this.putConfer.Titulo,
       descrip: this.putConfer.Descripcion,
       lugar: this.putConfer.Horario.Lugar,
-      //fecha: this.putConfer.Horario.Fecha,
+      fecha: this.putConfer.Horario.Fecha,
       horaInicio: this.putConfer.Horario.HoraInicio,
       horaFin: this.putConfer.Horario.HoraFin,
       semblanza: this.putConfer.Horario.Expositor.Semblanza,

@@ -26,6 +26,9 @@ import { AuthComponent } from './layouts/auth/auth.component';
 import { SchedulesComponent } from './components/schedules/schedules.component';
 import { AllConferenccesComponent } from './components/all-conferencces/all-conferencces.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { GraphicComponent } from './components/graphic/graphic.component';
+import { UserConfsComponent } from './components/user-confs/user-confs.component';
 
 
 @NgModule({
@@ -49,6 +52,9 @@ import { FilterComponent } from './components/filter/filter.component';
     SchedulesComponent,
     AllConferenccesComponent,
     FilterComponent,
+    StatisticsComponent,
+    GraphicComponent,
+    UserConfsComponent,
   ],
   imports: [
     BrowserModule,

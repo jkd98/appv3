@@ -1,10 +1,4 @@
 /* crm */
-
-.login-content{
-    display: flex;
-}
-
-
 .crm {
 }
 
@@ -38,7 +32,7 @@
 .cont_crm {
     display: grid;
     background: var(--blackFilter);
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(2, 2fr) 1fr;
     grid-auto-rows: minmax(7rem, auto);
 }
 
@@ -55,37 +49,33 @@
 
 .th_crm-content {}
 
-.th_crm__exp {
+.th_crm__title {
     grid-column: 1/2;
     grid-row: 1;
 }
 
-.th_crm__semb {
+.th_crm__hour {
     grid-column: 2/3;
     grid-row: 1;
 }
 
-.th_crm__inic {
+.th_crm__status {
     grid-column: 3/4;
     grid-row: 1;
 }
 
 
-.th_crm__fn {
-    grid-column: 4/5;
-    grid-row: 1;
-
+.tc_crm__title {
+    grid-column: 1/2;
 }
 
-.th_crm__place {
-    grid-column: 5/6;
-    grid-row: 1;
-
+.tc_crm__hour {
+    grid-column: 2/3;
 }
 
-.th_crm__actions {
-    grid-column: 6/7;
-    grid-row: 1;
+.tc_crm__status {
+    grid-column: 3/4;
+    padding: 0 1rem;
 }
 
 .th_crm tr {}
