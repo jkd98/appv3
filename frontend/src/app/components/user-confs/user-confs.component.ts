@@ -32,6 +32,7 @@ export class UserConfsComponent {
     //this.conferService.deleteConf(id);
     this.asistService.unAssitsConf(id);
     console.log('Para quitar asistencia');
+    this.router.navigate(['/auth/home']);
   }
   
 }

@@ -8,7 +8,7 @@
             <div class="crm__container" >
                 <div class="cont_crm">
                     <div class="th_crm th_crm__title" >
-                        <p >Titulo</p>
+                        <p >Conferencista</p>
                     </div>
                     
                     <div class="th_crm th_crm__date">
@@ -52,11 +52,10 @@
                             </div>
                             @defer (on idle) {
                             <div class="tc_crm__actions flex">
-                                <!-- <p>{{conf.PromDisp}}</p> -->
-                                    <p>
+                                <p>{{conf.PromDisp}}%</p>
+                                    <!-- <p>
                                         <app-graphic [porcent]="conf.PromDisp" ></app-graphic>
-                                        
-                                    </p>
+                                    </p> -->
                             </div>
                             }
                             <div class="tc_crm__place flex">

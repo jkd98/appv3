@@ -11,11 +11,16 @@
           <form [formGroup]="conferForm" (ngSubmit)="onSubmitConfer()">
             <!-- Titulo -->
             <div class="login-content" >
-              <input id="titulo" type="text" formControlName="titulo" placeholder=" ">
+              <input id="titulo" list="confs" type="text" formControlName="titulo" placeholder=" ">
               <label for="titulo">Titulo</label>
               <!-- <small *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="form-text text-danger">
                   <div *ngIf="nombre.hasError('required')">Ingresa tu Nombre</div>
                 </small> -->
+                <datalist id="confs" >
+                  @for (item of confers; track $index) {
+                    <option [value]="item.Titulos"></option>
+                  }
+                </datalist>
             </div>
             <!-- Descripcion -->
             <div class="login-content">
@@ -60,7 +65,7 @@
 
             <!-- submit btn -->
             <div class="login__btn">
-              <button type="submit" >Guardar Cambios</button>
+              <button type="submit" [disabled]="!conferForm.valid">Guardar Cambios</button>
             </div>
           </form>
         </div>

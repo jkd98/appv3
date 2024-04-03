@@ -11,7 +11,7 @@ const nuevaConf = async (req,res) => {
         res.json({msg:"Conferencia Registrada con Exito",confer:conferToSave});
     } catch (error) {
         const err =  new Error("Registro fallido");
-        return res.status(404).json({msg:err.message});
+        res.json({msg:err.message});
     }
 };
 
@@ -28,7 +28,7 @@ const listarConfsExp = async (req,res) => {
 
 //----Listar todas las conferencias
 const listConfsAdmin = async (req,res) => {
-    console.log('List metd');
+    //console.log('List metd');
     try {
         const confers = await Conferencia.find();
         if(confers.length > 0){
@@ -45,9 +45,10 @@ const detailConf = async (req,res) => {
     try {
         const conf = await Conferencia.findById(id).where('Horario.Expositor._id').equals(req.usuario._id);
         res.json(conf);
-        console.log(conf);
+        //console.log(conf);
     } catch (error) {
-        console.log("No se encontraro conferencia")
+        res.json({msg:"No se encontro la conferencia"});
+        //console.log("No se encontraro conferencia")
     }
 }
 
@@ -70,7 +71,7 @@ const switchStatus = async (req,res) => {
     try {
         const  data  = await Conferencia.updateOne({'_id':id},{'Status':status});
         res.json({msg:"Conferencia habilitada"});
-        console.log(data); 
+        //console.log(data); 
     } catch (error) {
         res.json({msg:"Fallo el update"});
     }
@@ -79,10 +80,10 @@ const switchStatus = async (req,res) => {
 //----Modificar conferencias
 const modifConf = async (req,res) => {
     const { id } = req.params;
-    console.log(req);
+    //console.log(req);
     try {
         const confer = await Conferencia.findById(id);
-        console.log(confer);
+        //console.log(confer);
         confer.Titulo = req.body.titulo || confer.Titulo;
         confer.Descripcion = req.body.descrip || confer.Descripcion;
         confer.Horario.Lugar = req.body.lugar || confer.Horario.Lugar;
@@ -92,11 +93,12 @@ const modifConf = async (req,res) => {
         confer.Horario.CupoTotal = req.body.cupo || confer.Horario.CupoTotal;
         confer.Horario.Expositor.Semblanza = req.body.semblanza || confer.Expositor.Semblanza;
         const editedConfe = await confer.save();
-        console.log(confer);
-        console.log(editedConfe);
+        //console.log(confer);
+        //console.log(editedConfe);
         return res.json({msg:"Actualizacion exitosa"})
     } catch (error) {
-        console.log("Error Mio jaja ")
+        return res.json({msg:"Faltan datos"})
+        //console.log("Error Mio jaja ")
     }
 }
 
@@ -137,10 +139,10 @@ const todaysConfs = async (req,res) => {
     // obtener fecha
     const { date } = req.query;
     try {
-        console.log(req);
+        //console.log(req);
         // Buscar coincidencias
         const confers = await Conferencia.find({'Horario.Fecha':date});
-        console.log(confers);
+        //console.log(confers);
         res.json(confers);
     } catch (error) {
         res.json({msg:"No se encontraron conferencias"})
@@ -166,11 +168,11 @@ const groupConfers = async (req,res) => {
             {$group:{'_id':'$Titulo'}},
             {$project:{'Titulos':'$_id'}}
         ]);
-        console.log(titles);
+        //console.log(titles);
         res.json(titles);
     } catch (error) {
         const err = new Error("Error en la consulta");
-        console.log(err.message);
+        //console.log(err.message);
         res.json({msg:err.message});
     }
 }

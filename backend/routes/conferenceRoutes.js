@@ -47,7 +47,7 @@ ROUTER.route('/title/:titulo')
 ;
 // obtener conferencias a las que asistire
 ROUTER.route('/asist')
-        .get(identi,listConfsAdmin)
+        .get(identi,listarConfsAssist)
 ;
 //  Registrar, listar conferencias por expositor
 ROUTER.route('/')

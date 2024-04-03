@@ -13,6 +13,8 @@ import { formatDate } from '@angular/common';
 })
 export class TestBackComponent implements OnInit{
   public conferences:Array<any> = [];
+  public confers:Array<any> = new Array();
+  
   //-----------
   //  Formulario de conferencias
   conferForm = this.fb.group({
@@ -38,8 +40,10 @@ export class TestBackComponent implements OnInit{
   }
 
   //--------
-  ngOnInit(): void {
+  async ngOnInit() {
     //this.getConfersDispo();
+    this.confers = await this.conferenceService.groupTitles();
+
   }
   /**
    * Funcion para añadir una conferencia
@@ -60,7 +64,7 @@ export class TestBackComponent implements OnInit{
     let nwConfer = new Conferencia(titulo!,descrip!);
     
     nwConfer.Horario.Lugar = lugar!;
-    nwConfer.Horario.Fecha = formatDate(Date(), 'yyyy-MM-dd', 'en-US')
+    nwConfer.Horario.Fecha = fecha!;
     nwConfer.Horario.HoraInicio = horaInicio!;
     nwConfer.Horario.HoraFin = horaFin!;
     nwConfer.Horario.Expositor.Semblanza = semblanza!;

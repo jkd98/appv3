@@ -22,7 +22,7 @@ const soldOut = async (req,res) => {
 const soldOut2 = async (req,res) => {
     try {
         const {fecha} = req.body;
-        console.log(`statist contrllr -> req: ${fecha}`)
+        //console.log(`statist contrllr -> req: ${fecha}`)
         const confer = await Conferencia.aggregate([
             {$project:{'Titulo':1,'Horario':1,'TRegistrados':{$size:"$Horario.AsistentesRegistrados"}}},
             {$match:{
@@ -33,12 +33,12 @@ const soldOut2 = async (req,res) => {
             }},
             {$project:{'_id':0,'Titulo':1,'Horario.Lugar':1,'Horario.HoraInicio':1,'TRegistrados':1,'Horario.Fecha':1}}
           ]);
-        console.log(confer);
+        //console.log(confer);
         return res.status(200).json({confer})
     } catch (error) {
         const err = new Error("Hubo un error");
-        console.log(err.message);
-        return res.status(404).json({msg:err.message});
+        //console.log(err.message);
+        return res.json({msg:err.message});
     }
 }
 //  Mostrar estadsticas de las conferencias 
@@ -62,11 +62,11 @@ const statistics2 = async (req,res) => {
               } 
             }
           ]);
-        console.log(data);
+        //console.log(data);
         return res.status(200).json({data});
     } catch (error) {
         const err = new Error("Hubo un error y no se cual es ajaja");
-        console.log(err.message);
+        //console.log(err.message);
         return res.status(500).json({msg:err.message});
     }
 }
@@ -101,10 +101,10 @@ const statistics = async (req,res) => {
         }
       }
     ]);
-    console.log(dataConfs);
+    //console.log(dataConfs);
     res.json(dataConfs);
   } catch (error) {
-    console.log('Error en consulta');
+    //console.log('Error en consulta');
     res.json({msg:"Error en el servidor"});
   }
 }

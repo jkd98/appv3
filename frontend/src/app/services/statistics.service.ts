@@ -12,7 +12,7 @@ export class StatisticsService {
   async getSoldOut(date:string){
     try {
       const {data} = await clienteAxios.get(`/statist/out/?date=${date}`);
-      console.log(data);
+      //console.log(data);
       return data;
     } catch (error) {
       console.log("Error Angular")
@@ -26,7 +26,7 @@ export class StatisticsService {
       const token = sessionStorage.getItem('tkn');
       
       if(!token) return;
-      console.log("On edit try retur...");
+      //console.log("On edit try retur...");
       const config = {
         headers:{
           "Content-Type":"application/json",
@@ -34,7 +34,7 @@ export class StatisticsService {
         }
       }
       const {data} = await clienteAxios.get('/statist',config);
-      console.log(data);
+      //console.log(data);
       return data;
     } catch (error) {
       console.log("Error angular");
